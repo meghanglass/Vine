@@ -95,24 +95,24 @@ export function WineDetailModal({ wine, onClose, onEdit, onDelete, onToggleFavor
                   >
                     <Heart
                       size={18}
-                      className={wine.favorite ? 'text-wine-400 fill-wine-400' : 'text-cream/40'}
+                      className={wine.favorite ? 'text-wine-400 fill-wine-400' : 'text-cream/60'}
                     />
                   </button>
                   <button
                     onClick={() => { onClose(); setTimeout(() => onEdit(wine), 50); }}
-                    className="p-2 rounded-xl hover:bg-white/10 transition-colors text-cream/40 hover:text-cream"
+                    className="p-2 rounded-xl hover:bg-white/10 transition-colors text-cream/60 hover:text-cream"
                   >
                     <Edit3 size={18} />
                   </button>
                   <button
                     onClick={handleDelete}
-                    className="p-2 rounded-xl hover:bg-red-500/20 transition-colors text-cream/40 hover:text-red-400"
+                    className="p-2 rounded-xl hover:bg-red-500/20 transition-colors text-cream/60 hover:text-red-400"
                   >
                     <Trash2 size={18} />
                   </button>
                   <button
                     onClick={onClose}
-                    className="p-2 rounded-xl hover:bg-white/10 transition-colors text-cream/40 hover:text-cream ml-1"
+                    className="p-2 rounded-xl hover:bg-white/10 transition-colors text-cream/60 hover:text-cream ml-1"
                   >
                     <X size={18} />
                   </button>
@@ -140,7 +140,7 @@ export function WineDetailModal({ wine, onClose, onEdit, onDelete, onToggleFavor
               <div className="grid grid-cols-2 gap-3">
                 {wine.vintage && (
                   <div className="bg-burgundy-dark/40 rounded-xl p-3 border border-wine-900/30">
-                    <div className="flex items-center gap-1.5 text-xs text-wine-500 mb-1">
+                    <div className="flex items-center gap-1.5 text-xs text-wine-400 mb-1">
                       <Calendar size={12} /> Vintage
                     </div>
                     <p className="text-cream font-semibold text-lg">{wine.vintage}</p>
@@ -148,7 +148,7 @@ export function WineDetailModal({ wine, onClose, onEdit, onDelete, onToggleFavor
                 )}
                 {(wine.region || wine.country) && (
                   <div className="bg-burgundy-dark/40 rounded-xl p-3 border border-wine-900/30">
-                    <div className="flex items-center gap-1.5 text-xs text-wine-500 mb-1">
+                    <div className="flex items-center gap-1.5 text-xs text-wine-400 mb-1">
                       <MapPin size={12} /> Origin
                     </div>
                     <p className="text-cream font-medium text-sm">
@@ -158,7 +158,7 @@ export function WineDetailModal({ wine, onClose, onEdit, onDelete, onToggleFavor
                 )}
                 {wine.grapes && (
                   <div className="bg-burgundy-dark/40 rounded-xl p-3 border border-wine-900/30">
-                    <div className="flex items-center gap-1.5 text-xs text-wine-500 mb-1">
+                    <div className="flex items-center gap-1.5 text-xs text-wine-400 mb-1">
                       <Wine size={12} /> Grapes
                     </div>
                     <p className="text-cream font-medium text-sm">{wine.grapes}</p>
@@ -166,7 +166,7 @@ export function WineDetailModal({ wine, onClose, onEdit, onDelete, onToggleFavor
                 )}
                 {wine.bottlesOwned > 0 && (
                   <div className="bg-burgundy-dark/40 rounded-xl p-3 border border-wine-900/30">
-                    <div className="flex items-center gap-1.5 text-xs text-wine-500 mb-1">
+                    <div className="flex items-center gap-1.5 text-xs text-wine-400 mb-1">
                       <Package size={12} /> Cellar
                     </div>
                     <p className="text-cream font-semibold text-lg">
@@ -182,7 +182,7 @@ export function WineDetailModal({ wine, onClose, onEdit, onDelete, onToggleFavor
               {/* Price */}
               {wine.price && (
                 <div className="flex items-center justify-between py-3 border-t border-b border-wine-900/30">
-                  <span className="text-wine-500 text-sm">Price</span>
+                  <span className="text-wine-400 text-sm">Price</span>
                   <span className="text-gold font-semibold text-lg">
                     {wine.currency} {wine.price.toFixed(2)}
                   </span>
@@ -192,7 +192,7 @@ export function WineDetailModal({ wine, onClose, onEdit, onDelete, onToggleFavor
               {/* Tasting notes */}
               {wine.notes && (
                 <div>
-                  <h3 className="text-xs text-wine-500 uppercase tracking-wider mb-2">Tasting Notes</h3>
+                  <h3 className="text-xs text-wine-400 uppercase tracking-wider mb-2">Tasting Notes</h3>
                   <p className="text-cream/80 text-sm leading-relaxed italic" style={{ fontFamily: "'Playfair Display', serif" }}>
                     "{wine.notes}"
                   </p>
@@ -202,7 +202,7 @@ export function WineDetailModal({ wine, onClose, onEdit, onDelete, onToggleFavor
               {/* Pairings */}
               {wine.pairings.length > 0 && (
                 <div>
-                  <h3 className="text-xs text-wine-500 uppercase tracking-wider mb-2">Food Pairings</h3>
+                  <h3 className="text-xs text-wine-400 uppercase tracking-wider mb-2">Food Pairings</h3>
                   <div className="flex flex-wrap gap-1.5">
                     {wine.pairings.map(p => (
                       <span
@@ -218,12 +218,12 @@ export function WineDetailModal({ wine, onClose, onEdit, onDelete, onToggleFavor
 
               {/* Dates */}
               <div className="flex flex-col gap-1.5 pt-2 border-t border-wine-900/30">
-                <div className="flex items-center gap-2 text-xs text-wine-600">
+                <div className="flex items-center gap-2 text-xs text-wine-400">
                   <Clock size={11} />
                   Added {new Date(wine.dateAdded).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
                 </div>
                 {wine.dateTasted && (
-                  <div className="flex items-center gap-2 text-xs text-wine-600">
+                  <div className="flex items-center gap-2 text-xs text-wine-400">
                     <Clock size={11} />
                     Tasted {new Date(wine.dateTasted).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
                   </div>

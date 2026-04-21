@@ -106,19 +106,19 @@ export function WineCard({ wine, onToggleFavorite, onDelete, onEdit, onView, ind
           >
             {wine.name}
           </h3>
-          <p className="text-sm text-cream/60 font-medium">{wine.winery}</p>
+          <p className="text-sm text-cream/80 font-medium">{wine.winery}</p>
         </div>
 
         {/* Meta */}
         <div className="space-y-1.5 mb-4">
           {(wine.region || wine.country) && (
-            <div className="flex items-center gap-1 text-xs text-cream/50">
+            <div className="flex items-center gap-1 text-xs text-cream/75">
               <MapPin size={11} />
               <span>{[wine.region, wine.country].filter(Boolean).join(', ')}</span>
             </div>
           )}
           {wine.vintage && (
-            <div className="flex items-center gap-1 text-xs text-cream/50">
+            <div className="flex items-center gap-1 text-xs text-cream/75">
               <Calendar size={11} />
               <span>{wine.vintage}</span>
             </div>

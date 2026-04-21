@@ -16,12 +16,12 @@ export function EmptyState({ hasFilters, onAdd }: Props) {
         <>
           <span className="text-5xl mb-4 opacity-50">🔍</span>
           <h3
-            className="text-xl font-semibold text-cream/60 mb-2"
+            className="text-xl font-semibold text-cream/80 mb-2"
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
             No wines match your filters
           </h3>
-          <p className="text-sm text-wine-600">Try adjusting your search or filters</p>
+          <p className="text-sm text-wine-400">Try adjusting your search or filters</p>
         </>
       ) : (
         <>
@@ -49,7 +49,7 @@ export function EmptyState({ hasFilters, onAdd }: Props) {
           >
             Your cellar awaits
           </h3>
-          <p className="text-wine-500 text-sm mb-8 max-w-xs">
+          <p className="text-wine-400 text-sm mb-8 max-w-xs">
             Start building your personal wine collection. Add wines you've tasted, own, or want to remember.
           </p>
           <button onClick={onAdd} className="btn-primary">

@@ -75,21 +75,18 @@ export default function App() {
         <header className="pt-10 pb-8">
           <div className="flex items-end justify-between gap-4 flex-wrap">
             <div>
-              <div className="flex items-center gap-3 mb-1">
-                <span className="text-3xl">🍷</span>
-                <h1
-                  className="text-4xl sm:text-5xl font-bold"
-                  style={{
-                    fontFamily: "'Playfair Display', serif",
-                    background: 'linear-gradient(135deg, #FAF3E0 30%, #C9A84C 100%)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                  }}
-                >
-                  Vine
-                </h1>
-              </div>
-              <p className="text-wine-500 text-sm tracking-widest uppercase">Your Private Wine Cellar</p>
+              <h1
+                className="text-4xl sm:text-5xl font-bold mb-1"
+                style={{
+                  fontFamily: "'Playfair Display', serif",
+                  background: 'linear-gradient(135deg, #FAF3E0 30%, #C9A84C 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}
+              >
+                Vine
+              </h1>
+              <p className="text-wine-400 text-sm tracking-widest uppercase">Your Private Wine Cellar</p>
             </div>
 
             {/* Add button */}
@@ -132,7 +129,7 @@ export default function App() {
         {/* View mode toggle + count */}
         {wines.length > 0 && (
           <div className="flex items-center justify-between mb-4">
-            <p className="text-wine-600 text-sm">
+            <p className="text-wine-400 text-sm">
               {filteredAndSorted.length} wine{filteredAndSorted.length !== 1 ? 's' : ''}
             </p>
             <div className="flex gap-1 p-1 rounded-xl bg-burgundy-dark/40 border border-wine-900/30">
@@ -143,7 +140,7 @@ export default function App() {
                   className={`p-2 rounded-lg transition-all ${
                     viewMode === mode
                       ? 'bg-gold/20 text-gold'
-                      : 'text-wine-600 hover:text-cream'
+                      : 'text-wine-400 hover:text-cream'
                   }`}
                   aria-label={`${mode} view`}
                 >

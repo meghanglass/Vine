@@ -100,11 +100,11 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
                 >
                   {initial ? 'Edit Wine' : 'Add New Wine'}
                 </h2>
-                <p className="text-xs text-wine-500 mt-0.5">{steps[step]}</p>
+                <p className="text-xs text-wine-400 mt-0.5">{steps[step]}</p>
               </div>
               <button
                 onClick={onClose}
-                className="p-2 rounded-xl hover:bg-wine-900/40 text-wine-500 hover:text-cream transition-colors"
+                className="p-2 rounded-xl hover:bg-wine-900/40 text-wine-400 hover:text-cream transition-colors"
               >
                 <X size={18} />
               </button>
@@ -143,7 +143,7 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
 
                     {/* Wine type selector */}
                     <div>
-                      <label className="block text-xs text-wine-500 uppercase tracking-wider mb-2">Type *</label>
+                      <label className="block text-xs text-wine-400 uppercase tracking-wider mb-2">Type *</label>
                       <div className="grid grid-cols-3 gap-2">
                         {WINE_TYPES.map(t => {
                           const cfg = typeConfig[t];
@@ -154,7 +154,7 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
                               type="button"
                               onClick={() => set('type', t)}
                               className={`flex flex-col items-center gap-1 py-3 rounded-xl border text-sm transition-all ${
-                                active ? 'font-medium' : 'border-wine-800 text-cream/50 hover:border-wine-600'
+                                active ? 'font-medium' : 'border-wine-800 text-cream/70 hover:border-wine-600'
                               }`}
                               style={active ? { background: cfg.bg, color: cfg.color, borderColor: `${cfg.color}55` } : {}}
                             >
@@ -168,7 +168,7 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
 
                     {/* Name */}
                     <div>
-                      <label className="block text-xs text-wine-500 uppercase tracking-wider mb-2">Wine Name *</label>
+                      <label className="block text-xs text-wine-400 uppercase tracking-wider mb-2">Wine Name *</label>
                       <input
                         className="input-field"
                         placeholder="e.g. Château Margaux, Barolo Riserva..."
@@ -180,7 +180,7 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
 
                     {/* Winery */}
                     <div>
-                      <label className="block text-xs text-wine-500 uppercase tracking-wider mb-2">Winery / Producer</label>
+                      <label className="block text-xs text-wine-400 uppercase tracking-wider mb-2">Winery / Producer</label>
                       <input
                         className="input-field"
                         placeholder="Producer name..."
@@ -192,7 +192,7 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
                     {/* Vintage + Rating row */}
                     <div className="grid grid-cols-2 gap-3">
                       <div>
-                        <label className="block text-xs text-wine-500 uppercase tracking-wider mb-2">Vintage</label>
+                        <label className="block text-xs text-wine-400 uppercase tracking-wider mb-2">Vintage</label>
                         <input
                           className="input-field"
                           type="number"
@@ -204,7 +204,7 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
                         />
                       </div>
                       <div>
-                        <label className="block text-xs text-wine-500 uppercase tracking-wider mb-2">Rating</label>
+                        <label className="block text-xs text-wine-400 uppercase tracking-wider mb-2">Rating</label>
                         <div className="pt-2">
                           <StarRating value={form.rating} onChange={v => set('rating', v)} size="lg" />
                         </div>
@@ -223,7 +223,7 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
                   >
                     {/* Grapes */}
                     <div>
-                      <label className="block text-xs text-wine-500 uppercase tracking-wider mb-2">Grape Varieties</label>
+                      <label className="block text-xs text-wine-400 uppercase tracking-wider mb-2">Grape Varieties</label>
                       <input
                         className="input-field"
                         placeholder="e.g. Cabernet Sauvignon, Merlot..."
@@ -235,7 +235,7 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
                     {/* Region + Country */}
                     <div className="grid grid-cols-2 gap-3">
                       <div>
-                        <label className="block text-xs text-wine-500 uppercase tracking-wider mb-2">Region</label>
+                        <label className="block text-xs text-wine-400 uppercase tracking-wider mb-2">Region</label>
                         <input
                           className="input-field"
                           placeholder="e.g. Bordeaux, Tuscany..."
@@ -244,7 +244,7 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
                         />
                       </div>
                       <div>
-                        <label className="block text-xs text-wine-500 uppercase tracking-wider mb-2">Country</label>
+                        <label className="block text-xs text-wine-400 uppercase tracking-wider mb-2">Country</label>
                         <input
                           className="input-field"
                           placeholder="e.g. France, Italy..."
@@ -257,7 +257,7 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
                     {/* Price */}
                     <div className="grid grid-cols-3 gap-2">
                       <div>
-                        <label className="block text-xs text-wine-500 uppercase tracking-wider mb-2">Currency</label>
+                        <label className="block text-xs text-wine-400 uppercase tracking-wider mb-2">Currency</label>
                         <select
                           className="input-field"
                           value={form.currency}
@@ -267,7 +267,7 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
                         </select>
                       </div>
                       <div className="col-span-2">
-                        <label className="block text-xs text-wine-500 uppercase tracking-wider mb-2">Price</label>
+                        <label className="block text-xs text-wine-400 uppercase tracking-wider mb-2">Price</label>
                         <input
                           className="input-field"
                           type="number"
@@ -282,7 +282,7 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
 
                     {/* Bottles owned */}
                     <div>
-                      <label className="block text-xs text-wine-500 uppercase tracking-wider mb-2">Bottles in Collection</label>
+                      <label className="block text-xs text-wine-400 uppercase tracking-wider mb-2">Bottles in Collection</label>
                       <div className="flex items-center gap-3">
                         <button
                           type="button"
@@ -314,7 +314,7 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
                   >
                     {/* Date tasted */}
                     <div>
-                      <label className="block text-xs text-wine-500 uppercase tracking-wider mb-2">Date Tasted</label>
+                      <label className="block text-xs text-wine-400 uppercase tracking-wider mb-2">Date Tasted</label>
                       <input
                         className="input-field"
                         type="date"
@@ -326,7 +326,7 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
 
                     {/* Tasting notes */}
                     <div>
-                      <label className="block text-xs text-wine-500 uppercase tracking-wider mb-2">Tasting Notes</label>
+                      <label className="block text-xs text-wine-400 uppercase tracking-wider mb-2">Tasting Notes</label>
                       <textarea
                         className="input-field resize-none"
                         placeholder="Describe aromas, flavors, finish..."
@@ -338,7 +338,7 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
 
                     {/* Food pairings */}
                     <div>
-                      <label className="block text-xs text-wine-500 uppercase tracking-wider mb-2">Food Pairings</label>
+                      <label className="block text-xs text-wine-400 uppercase tracking-wider mb-2">Food Pairings</label>
                       <div className="flex flex-wrap gap-1.5 mb-3">
                         {COMMON_PAIRINGS.map(p => {
                           const active = form.pairings.includes(p);
@@ -354,7 +354,7 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
                               className={`px-2.5 py-1 rounded-full text-xs border transition-all ${
                                 active
                                   ? 'bg-gold/20 border-gold/50 text-gold'
-                                  : 'border-wine-800 text-cream/50 hover:border-wine-600'
+                                  : 'border-wine-800 text-cream/70 hover:border-wine-600'
                               }`}
                             >
                               {p}

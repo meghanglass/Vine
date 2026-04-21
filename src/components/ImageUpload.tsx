@@ -34,7 +34,7 @@ export function ImageUpload({ value, onChange }: Props) {
 
   return (
     <div>
-      <label className="block text-xs text-wine-500 uppercase tracking-wider mb-2">
+      <label className="block text-xs text-wine-400 uppercase tracking-wider mb-2">
         Photo
       </label>
 
@@ -92,7 +92,7 @@ export function ImageUpload({ value, onChange }: Props) {
                 style={{ height: 120 }}
               >
                 <Loader2 size={22} className="text-gold animate-spin" />
-                <span className="text-xs text-wine-500">Processing…</span>
+                <span className="text-xs text-wine-400">Processing…</span>
               </div>
             ) : (
               <div
@@ -101,8 +101,8 @@ export function ImageUpload({ value, onChange }: Props) {
               >
                 {/* Drop hint */}
                 <div className="flex flex-col items-center gap-2 py-5 pointer-events-none select-none">
-                  <ImagePlus size={26} className="text-wine-700" />
-                  <p className="text-xs text-wine-600">Add a photo of the label or bottle</p>
+                  <ImagePlus size={26} className="text-wine-600" />
+                  <p className="text-xs text-wine-400">Add a photo of the label or bottle</p>
                 </div>
 
                 {/* Source buttons */}

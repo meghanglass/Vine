@@ -130,7 +130,7 @@ export function FilterBar({
             <div className="bg-burgundy-dark/40 border border-wine-900/40 rounded-2xl p-4 space-y-4">
               {/* Wine types */}
               <div>
-                <p className="text-xs text-wine-500 uppercase tracking-wider mb-2">Wine Type</p>
+                <p className="text-xs text-wine-400 uppercase tracking-wider mb-2">Wine Type</p>
                 <div className="flex flex-wrap gap-2">
                   {WINE_TYPES.map(t => {
                     const cfg = typeConfig[t];
@@ -155,7 +155,7 @@ export function FilterBar({
 
               {/* Min rating */}
               <div>
-                <p className="text-xs text-wine-500 uppercase tracking-wider mb-2">Minimum Rating</p>
+                <p className="text-xs text-wine-400 uppercase tracking-wider mb-2">Minimum Rating</p>
                 <div className="flex gap-2">
                   {[0, 1, 2, 3, 4, 5].map(r => (
                     <button
@@ -176,7 +176,7 @@ export function FilterBar({
               {/* Countries */}
               {allCountries.length > 0 && (
                 <div>
-                  <p className="text-xs text-wine-500 uppercase tracking-wider mb-2">Country</p>
+                  <p className="text-xs text-wine-400 uppercase tracking-wider mb-2">Country</p>
                   <div className="flex flex-wrap gap-2">
                     {allCountries.map(country => {
                       const active = filters.countries.includes(country);
@@ -225,7 +225,7 @@ export function FilterBar({
 
       {/* Result count */}
       {(hasActiveFilters || filters.search) && (
-        <p className="text-xs text-wine-500">
+        <p className="text-xs text-wine-400">
           Showing <span className="text-gold font-medium">{count}</span> of {total} wines
         </p>
       )}
