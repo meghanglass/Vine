@@ -19,6 +19,7 @@ export interface Wine {
   favorite: boolean;
   bottlesOwned: number;
   label?: string; // emoji or color code
+  photo?: string; // base64 JPEG
 }
 
 export type SortKey = 'dateAdded' | 'name' | 'rating' | 'vintage' | 'winery';

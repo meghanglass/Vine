@@ -4,6 +4,7 @@ import { X, Plus, Trash2 } from 'lucide-react';
 import type { Wine, WineType } from '../types';
 import { StarRating } from './StarRating';
 import { typeConfig } from './WineTypeIcon';
+import { ImageUpload } from './ImageUpload';
 
 interface Props {
   open: boolean;
@@ -33,6 +34,7 @@ function empty(): Omit<Wine, 'id' | 'dateAdded'> {
     dateTasted: null,
     favorite: false,
     bottlesOwned: 1,
+    photo: undefined,
   };
 }
 
@@ -133,6 +135,12 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
                     exit={{ opacity: 0, x: -20 }}
                     className="space-y-4"
                   >
+                    {/* Photo upload */}
+                    <ImageUpload
+                      value={form.photo}
+                      onChange={v => set('photo', v)}
+                    />
+
                     {/* Wine type selector */}
                     <div>
                       <label className="block text-xs text-wine-500 uppercase tracking-wider mb-2">Type *</label>

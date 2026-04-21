@@ -48,18 +48,42 @@ export function WineDetailModal({ wine, onClose, onEdit, onDelete, onToggleFavor
             <div
               className="relative px-6 pt-8 pb-6"
               style={{
-                background: `linear-gradient(135deg, ${cfg.bg.replace('0.15', '0.4')}, transparent)`,
+                background: wine.photo
+                  ? undefined
+                  : `linear-gradient(135deg, ${cfg.bg.replace('0.15', '0.4')}, transparent)`,
                 borderBottom: '1px solid rgba(114,47,55,0.3)',
               }}
             >
-              {/* Decorative wine glass illustration */}
-              <div
-                className="absolute top-4 right-12 text-6xl opacity-10 pointer-events-none select-none"
-                style={{ transform: 'rotate(10deg)' }}
-                aria-hidden
-              >
-                {cfg.emoji}
-              </div>
+              {/* Photo background */}
+              {wine.photo && (
+                <>
+                  <img
+                    src={wine.photo}
+                    alt=""
+                    aria-hidden
+                    className="absolute inset-0 w-full h-full object-cover"
+                    style={{ borderRadius: 0 }}
+                  />
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background:
+                        'linear-gradient(170deg, rgba(10,3,5,0.45) 0%, rgba(10,3,5,0.15) 35%, rgba(10,3,5,0.85) 100%)',
+                    }}
+                  />
+                </>
+              )}
+
+              {/* Decorative wine glass illustration (only without photo) */}
+              {!wine.photo && (
+                <div
+                  className="absolute top-4 right-12 text-6xl opacity-10 pointer-events-none select-none"
+                  style={{ transform: 'rotate(10deg)' }}
+                  aria-hidden
+                >
+                  {cfg.emoji}
+                </div>
+              )}
 
               {/* Top actions */}
               <div className="flex items-center justify-between mb-4">

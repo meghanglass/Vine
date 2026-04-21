@@ -54,16 +54,34 @@ export function WineCard({ wine, onToggleFavorite, onDelete, onEdit, onView, ind
         (e.currentTarget as HTMLDivElement).style.boxShadow = `0 4px 24px rgba(${glow}, 0.15)`;
       }}
     >
-      {/* Background gradient */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-90`} />
-
-      {/* Subtle pattern overlay */}
-      <div
-        className="absolute inset-0 opacity-5"
-        style={{
-          backgroundImage: `radial-gradient(circle at 20% 80%, rgba(${glow},0.4) 0%, transparent 60%)`,
-        }}
-      />
+      {/* Background: photo or gradient */}
+      {wine.photo ? (
+        <>
+          <img
+            src={wine.photo}
+            alt=""
+            aria-hidden
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          {/* scrim so text stays readable */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background: `linear-gradient(160deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.72) 100%)`,
+            }}
+          />
+        </>
+      ) : (
+        <>
+          <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-90`} />
+          <div
+            className="absolute inset-0 opacity-5"
+            style={{
+              backgroundImage: `radial-gradient(circle at 20% 80%, rgba(${glow},0.4) 0%, transparent 60%)`,
+            }}
+          />
+        </>
+      )}
 
       {/* Content */}
       <div className="relative p-5 flex flex-col h-full min-h-[220px]" onClick={() => onView(wine)}>
