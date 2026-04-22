@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -15,8 +15,8 @@
 
   body {
     margin: 0;
-    background: #1a0a0c;
-    color: #faf3e0;
+    background: #FAFAF9;
+    color: #1C1917;
     font-family: 'Inter', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     min-height: 100vh;
@@ -34,115 +34,66 @@
 }
 
 @layer components {
-  .font-display {
-    font-family: 'Playfair Display', Georgia, serif;
-  }
-
   .wine-card {
-    @apply bg-burgundy-dark border border-wine-900/50 rounded-2xl overflow-hidden;
-    @apply transition-all duration-300;
-    @apply shadow-card;
+    @apply bg-white border border-stone-200 rounded-xl overflow-hidden;
+    @apply transition-all duration-200;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
   }
 
   .wine-card:hover {
-    @apply shadow-card-hover;
-    transform: translateY(-4px);
+    @apply border-stone-300;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.05);
+    transform: translateY(-2px);
   }
 
   .btn-primary {
-    @apply bg-gold text-burgundy-deeper font-semibold px-6 py-3 rounded-xl;
-    @apply transition-all duration-200 hover:bg-gold-light active:scale-95;
-    @apply shadow-gold;
+    @apply bg-stone-900 text-white font-medium px-5 py-2.5 rounded-lg;
+    @apply transition-all duration-150 hover:bg-stone-800 active:scale-95;
   }
 
   .btn-secondary {
-    @apply border border-wine-700 text-cream px-6 py-3 rounded-xl;
-    @apply transition-all duration-200 hover:bg-wine-900/50 active:scale-95;
+    @apply bg-white border border-stone-200 text-stone-700 px-5 py-2.5 rounded-lg;
+    @apply transition-all duration-150 hover:bg-stone-50 hover:border-stone-300 active:scale-95;
   }
 
   .input-field {
-    @apply w-full bg-burgundy-deeper border border-wine-800 rounded-xl px-4 py-3;
-    @apply text-cream placeholder-wine-700 outline-none;
-    @apply transition-all duration-200;
-    @apply focus:border-gold focus:ring-2 focus:ring-gold/20;
+    @apply w-full bg-white border border-stone-200 rounded-lg px-3.5 py-2.5;
+    @apply text-stone-800 placeholder-stone-400 outline-none;
+    @apply transition-all duration-150;
+    @apply focus:border-stone-400 focus:ring-2 focus:ring-stone-100;
   }
 
   .rating-star {
-    @apply text-2xl cursor-pointer transition-all duration-150;
-    @apply select-none;
+    @apply cursor-pointer transition-all duration-100 select-none;
   }
 
   .badge {
-    @apply inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium;
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium;
   }
 }
 
 @layer utilities {
-  .scrollbar-wine::-webkit-scrollbar {
-    width: 6px;
+  .scrollbar-light::-webkit-scrollbar {
+    width: 4px;
   }
-  .scrollbar-wine::-webkit-scrollbar-track {
-    background: #2d0f13;
+  .scrollbar-light::-webkit-scrollbar-track {
+    background: transparent;
   }
-  .scrollbar-wine::-webkit-scrollbar-thumb {
-    background: #722F37;
-    border-radius: 3px;
+  .scrollbar-light::-webkit-scrollbar-thumb {
+    background: #D6D3D1;
+    border-radius: 2px;
   }
-  .scrollbar-wine::-webkit-scrollbar-thumb:hover {
-    background: #C9A84C;
+  .scrollbar-light::-webkit-scrollbar-thumb:hover {
+    background: #A8A29E;
   }
 
   .text-balance {
     text-wrap: balance;
   }
-
-  .glass-effect {
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-  }
 }
 
-/* Wine bottle fill animation */
-@keyframes fill-up {
-  from { clip-path: inset(100% 0 0 0); }
-  to { clip-path: inset(0 0 0 0); }
-}
-
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-.shimmer {
-  background: linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.15) 50%, transparent 100%);
-  background-size: 200% 100%;
-  animation: shimmer 2s infinite;
-}
-
-/* Custom scrollbar for modal */
 .modal-scroll {
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: #722F37 #2d0f13;
-}
-
-/* Subtle noise texture overlay */
-.noise::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Grape vine decoration */
-.vine-border {
-  border-image: repeating-linear-gradient(
-    90deg,
-    #722F37 0px,
-    #722F37 4px,
-    transparent 4px,
-    transparent 12px
-  ) 1;
+  scrollbar-color: #D6D3D1 transparent;
 }

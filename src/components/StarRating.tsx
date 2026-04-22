@@ -7,7 +7,7 @@ interface Props {
   size?: 'sm' | 'md' | 'lg';
 }
 
-const sizes = { sm: 'text-base', md: 'text-xl', lg: 'text-2xl' };
+const sizes = { sm: 'text-sm', md: 'text-lg', lg: 'text-xl' };
 
 export function StarRating({ value, onChange, readonly = false, size = 'md' }: Props) {
   const [hovered, setHovered] = useState(0);
@@ -21,8 +21,13 @@ export function StarRating({ value, onChange, readonly = false, size = 'md' }: P
           key={star}
           type="button"
           disabled={readonly}
-          className={`${sizes[size]} transition-all duration-100 ${readonly ? 'cursor-default' : 'cursor-pointer hover:scale-110'}`}
-          style={{ color: star <= display ? '#C9A84C' : '#4a1a1f', background: 'none', border: 'none', padding: 0 }}
+          className={`${sizes[size]} transition-all duration-100 leading-none ${readonly ? 'cursor-default' : 'cursor-pointer hover:scale-110'}`}
+          style={{
+            color: star <= display ? '#D97706' : '#E7E5E4',
+            background: 'none',
+            border: 'none',
+            padding: 0,
+          }}
           onMouseEnter={() => !readonly && setHovered(star)}
           onClick={() => onChange?.(star)}
           aria-label={`Rate ${star} stars`}
