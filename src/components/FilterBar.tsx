@@ -40,36 +40,42 @@ export function FilterBar({
   const clearFilters = () =>
     setFilters(f => ({ ...f, types: [], minRating: 0, countries: [], favorites: false }));
 
+  const activeCount =
+    filters.types.length +
+    (filters.minRating > 0 ? 1 : 0) +
+    filters.countries.length +
+    (filters.favorites ? 1 : 0);
+
   return (
-    <div className="space-y-3">
+    <div className="space-y-2">
       {/* Search + controls row */}
       <div className="flex gap-2 flex-wrap">
         {/* Search */}
         <div className="relative flex-1 min-w-[200px]">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-wine-600 pointer-events-none" />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 pointer-events-none" strokeWidth={1.5} />
           <input
             type="text"
-            placeholder="Search wines, wineries, regions..."
+            placeholder="Search wines, wineries, regions…"
             value={filters.search}
             onChange={e => setFilters(f => ({ ...f, search: e.target.value }))}
-            className="input-field pl-9 text-sm"
+            className="input-field pl-8 text-sm"
           />
           {filters.search && (
             <button
               onClick={() => setFilters(f => ({ ...f, search: '' }))}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-wine-600 hover:text-cream"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600"
             >
-              <X size={14} />
+              <X size={13} />
             </button>
           )}
         </div>
 
         {/* Sort */}
-        <div className="flex items-center gap-1 bg-burgundy-darker border border-wine-800 rounded-xl px-3 text-sm" style={{ background: '#2d0f13' }}>
+        <div className="flex items-center gap-0.5 bg-white border border-stone-200 rounded-lg px-3 text-sm">
           <select
             value={sortKey}
             onChange={e => setSortKey(e.target.value as SortKey)}
-            className="bg-transparent text-cream outline-none py-3 cursor-pointer"
+            className="bg-transparent text-stone-700 outline-none py-2.5 cursor-pointer text-sm"
           >
             <option value="dateAdded">Date Added</option>
             <option value="name">Name</option>
@@ -79,11 +85,11 @@ export function FilterBar({
           </select>
           <button
             onClick={() => setSortDir(sortDir === 'asc' ? 'desc' : 'asc')}
-            className="text-gold hover:text-gold-light transition-colors ml-1"
+            className="text-stone-400 hover:text-stone-600 transition-colors ml-0.5"
             aria-label="Toggle sort direction"
           >
             <ChevronDown
-              size={16}
+              size={14}
               className={`transition-transform duration-200 ${sortDir === 'asc' ? 'rotate-180' : ''}`}
             />
           </button>
@@ -92,17 +98,17 @@ export function FilterBar({
         {/* Filter toggle */}
         <button
           onClick={() => setOpen(!open)}
-          className={`flex items-center gap-2 px-4 py-3 rounded-xl border text-sm font-medium transition-all duration-200 ${
-            hasActiveFilters
-              ? 'bg-gold/15 border-gold/50 text-gold'
-              : 'border-wine-800 text-cream/70 hover:text-cream hover:border-wine-600'
+          className={`flex items-center gap-1.5 px-3.5 py-2.5 rounded-lg border text-sm transition-all duration-150 ${
+            hasActiveFilters || open
+              ? 'bg-stone-900 border-stone-900 text-white'
+              : 'bg-white border-stone-200 text-stone-600 hover:border-stone-300'
           }`}
         >
-          <SlidersHorizontal size={15} />
+          <SlidersHorizontal size={13} strokeWidth={1.75} />
           Filters
-          {hasActiveFilters && (
-            <span className="bg-gold text-burgundy-deeper text-xs rounded-full w-4 h-4 flex items-center justify-center font-bold">
-              {filters.types.length + (filters.minRating > 0 ? 1 : 0) + filters.countries.length + (filters.favorites ? 1 : 0)}
+          {activeCount > 0 && (
+            <span className="bg-white text-stone-900 text-xs rounded-full w-4 h-4 flex items-center justify-center font-semibold leading-none">
+              {activeCount}
             </span>
           )}
         </button>
@@ -110,9 +116,9 @@ export function FilterBar({
         {hasActiveFilters && (
           <button
             onClick={clearFilters}
-            className="flex items-center gap-1 px-3 py-3 rounded-xl text-sm text-wine-400 hover:text-cream transition-colors"
+            className="flex items-center gap-1 px-3 py-2.5 rounded-lg text-sm text-stone-500 hover:text-stone-700 transition-colors"
           >
-            <X size={14} /> Clear
+            <X size={12} /> Clear
           </button>
         )}
       </div>
@@ -124,14 +130,14 @@ export function FilterBar({
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25 }}
+            transition={{ duration: 0.2 }}
             className="overflow-hidden"
           >
-            <div className="bg-burgundy-dark/40 border border-wine-900/40 rounded-2xl p-4 space-y-4">
+            <div className="bg-white border border-stone-200 rounded-xl p-4 space-y-4">
               {/* Wine types */}
               <div>
-                <p className="text-xs text-wine-400 uppercase tracking-wider mb-2">Wine Type</p>
-                <div className="flex flex-wrap gap-2">
+                <p className="text-xs text-stone-400 uppercase tracking-wider mb-2.5 font-medium">Wine Type</p>
+                <div className="flex flex-wrap gap-1.5">
                   {WINE_TYPES.map(t => {
                     const cfg = typeConfig[t];
                     const active = filters.types.includes(t);
@@ -139,12 +145,14 @@ export function FilterBar({
                       <button
                         key={t}
                         onClick={() => toggleType(t)}
-                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm border transition-all duration-200 ${
-                          active
-                            ? 'border-transparent font-medium'
-                            : 'border-wine-800 text-cream/60 hover:border-wine-600'
+                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm border transition-all duration-150 ${
+                          active ? 'font-medium' : 'border-stone-200 text-stone-600 hover:border-stone-300'
                         }`}
-                        style={active ? { background: cfg.bg, color: cfg.color, borderColor: `${cfg.color}44` } : {}}
+                        style={active ? {
+                          background: cfg.bg,
+                          color: cfg.color,
+                          borderColor: `${cfg.color}33`,
+                        } : {}}
                       >
                         {cfg.emoji} {cfg.label}
                       </button>
@@ -155,16 +163,16 @@ export function FilterBar({
 
               {/* Min rating */}
               <div>
-                <p className="text-xs text-wine-400 uppercase tracking-wider mb-2">Minimum Rating</p>
-                <div className="flex gap-2">
+                <p className="text-xs text-stone-400 uppercase tracking-wider mb-2.5 font-medium">Minimum Rating</p>
+                <div className="flex gap-1.5">
                   {[0, 1, 2, 3, 4, 5].map(r => (
                     <button
                       key={r}
                       onClick={() => setFilters(f => ({ ...f, minRating: r }))}
-                      className={`px-3 py-1.5 rounded-lg text-sm border transition-all ${
+                      className={`px-3 py-1.5 rounded-lg text-sm border transition-all duration-150 ${
                         filters.minRating === r
-                          ? 'bg-gold/20 border-gold/50 text-gold font-medium'
-                          : 'border-wine-800 text-cream/60 hover:border-wine-600'
+                          ? 'bg-stone-900 border-stone-900 text-white font-medium'
+                          : 'bg-white border-stone-200 text-stone-600 hover:border-stone-300'
                       }`}
                     >
                       {r === 0 ? 'Any' : '★'.repeat(r)}
@@ -176,8 +184,8 @@ export function FilterBar({
               {/* Countries */}
               {allCountries.length > 0 && (
                 <div>
-                  <p className="text-xs text-wine-400 uppercase tracking-wider mb-2">Country</p>
-                  <div className="flex flex-wrap gap-2">
+                  <p className="text-xs text-stone-400 uppercase tracking-wider mb-2.5 font-medium">Country</p>
+                  <div className="flex flex-wrap gap-1.5">
                     {allCountries.map(country => {
                       const active = filters.countries.includes(country);
                       return (
@@ -191,10 +199,10 @@ export function FilterBar({
                                 : [...f.countries, country],
                             }))
                           }
-                          className={`px-3 py-1.5 rounded-full text-sm border transition-all ${
+                          className={`px-3 py-1.5 rounded-full text-sm border transition-all duration-150 ${
                             active
-                              ? 'bg-wine-800/60 border-wine-600 text-cream font-medium'
-                              : 'border-wine-800 text-cream/60 hover:border-wine-600'
+                              ? 'bg-stone-900 border-stone-900 text-white font-medium'
+                              : 'bg-white border-stone-200 text-stone-600 hover:border-stone-300'
                           }`}
                         >
                           {country}
@@ -206,13 +214,13 @@ export function FilterBar({
               )}
 
               {/* Favorites */}
-              <div className="flex items-center gap-3">
+              <div>
                 <button
                   onClick={() => setFilters(f => ({ ...f, favorites: !f.favorites }))}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-xl border text-sm transition-all ${
+                  className={`flex items-center gap-2 px-3.5 py-2 rounded-lg border text-sm transition-all duration-150 ${
                     filters.favorites
-                      ? 'bg-wine-800/40 border-wine-500 text-wine-300 font-medium'
-                      : 'border-wine-800 text-cream/60 hover:border-wine-600'
+                      ? 'bg-red-50 border-red-200 text-red-700 font-medium'
+                      : 'bg-white border-stone-200 text-stone-600 hover:border-stone-300'
                   }`}
                 >
                   ♥ Favorites only
@@ -225,8 +233,8 @@ export function FilterBar({
 
       {/* Result count */}
       {(hasActiveFilters || filters.search) && (
-        <p className="text-xs text-wine-400">
-          Showing <span className="text-gold font-medium">{count}</span> of {total} wines
+        <p className="text-xs text-stone-400">
+          Showing <span className="text-stone-700 font-medium">{count}</span> of {total} wines
         </p>
       )}
     </div>

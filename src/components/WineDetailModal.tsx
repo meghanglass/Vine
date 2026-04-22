@@ -29,149 +29,147 @@ export function WineDetailModal({ wine, onClose, onEdit, onDelete, onToggleFavor
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           className="fixed inset-0 z-50 flex items-center justify-center p-4"
-          style={{ background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(6px)' }}
+          style={{ background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(4px)' }}
           onClick={e => e.target === e.currentTarget && onClose()}
         >
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 30 }}
+            initial={{ opacity: 0, scale: 0.96, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 30 }}
-            transition={{ type: 'spring', damping: 22, stiffness: 260 }}
-            className="w-full max-w-md rounded-3xl overflow-hidden modal-scroll"
+            exit={{ opacity: 0, scale: 0.96, y: 16 }}
+            transition={{ type: 'spring', damping: 26, stiffness: 300 }}
+            className="w-full max-w-md bg-white rounded-2xl overflow-hidden modal-scroll"
             style={{
-              background: '#1a0a0c',
               maxHeight: '90vh',
-              border: '1px solid rgba(114,47,55,0.4)',
+              border: '1px solid #E7E5E4',
+              boxShadow: '0 20px 60px rgba(0,0,0,0.12), 0 8px 24px rgba(0,0,0,0.07)',
             }}
           >
             {/* Hero section */}
             <div
-              className="relative px-6 pt-8 pb-6"
+              className="relative"
               style={{
-                background: wine.photo
-                  ? undefined
-                  : `linear-gradient(135deg, ${cfg.bg.replace('0.15', '0.4')}, transparent)`,
-                borderBottom: '1px solid rgba(114,47,55,0.3)',
+                background: wine.photo ? undefined : cfg.bg,
+                borderBottom: '1px solid #E7E5E4',
               }}
             >
-              {/* Photo background */}
-              {wine.photo && (
+              {wine.photo ? (
                 <>
                   <img
                     src={wine.photo}
                     alt=""
                     aria-hidden
-                    className="absolute inset-0 w-full h-full object-cover"
-                    style={{ borderRadius: 0 }}
+                    className="w-full object-cover"
+                    style={{ height: 200 }}
                   />
                   <div
                     className="absolute inset-0"
                     style={{
-                      background:
-                        'linear-gradient(170deg, rgba(10,3,5,0.45) 0%, rgba(10,3,5,0.15) 35%, rgba(10,3,5,0.85) 100%)',
+                      background: 'linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 50%)',
                     }}
                   />
                 </>
-              )}
-
-              {/* Decorative wine glass illustration (only without photo) */}
-              {!wine.photo && (
-                <div
-                  className="absolute top-4 right-12 text-6xl opacity-10 pointer-events-none select-none"
-                  style={{ transform: 'rotate(10deg)' }}
-                  aria-hidden
-                >
-                  {cfg.emoji}
+              ) : (
+                <div className="relative px-6 pt-6 pb-5">
+                  {/* Decorative emoji */}
+                  <div
+                    className="absolute top-4 right-8 text-5xl opacity-10 pointer-events-none select-none"
+                    style={{ transform: 'rotate(8deg)' }}
+                    aria-hidden
+                  >
+                    {cfg.emoji}
+                  </div>
                 </div>
               )}
 
-              {/* Top actions */}
-              <div className="flex items-center justify-between mb-4">
-                <WineTypeIcon type={wine.type} showLabel size="md" />
-                <div className="flex items-center gap-1">
+              {/* Action bar overlaid on hero */}
+              <div className={`flex items-center justify-between px-5 ${wine.photo ? 'absolute bottom-0 left-0 right-0 pb-4' : 'pb-0'}`}>
+                {wine.photo ? (
+                  <div className="flex-1" />
+                ) : null}
+                <div className="flex items-center gap-0.5 ml-auto">
                   <button
                     onClick={() => onToggleFavorite(wine.id)}
-                    className="p-2 rounded-xl hover:bg-white/10 transition-colors"
+                    className={`p-2 rounded-lg transition-colors ${wine.photo ? 'hover:bg-white/20 text-white/80 hover:text-white' : 'hover:bg-black/5 text-stone-500 hover:text-stone-800'}`}
                   >
                     <Heart
-                      size={18}
-                      className={wine.favorite ? 'text-wine-400 fill-wine-400' : 'text-cream/60'}
+                      size={16}
+                      className={wine.favorite ? 'text-red-400 fill-red-400' : ''}
                     />
                   </button>
                   <button
                     onClick={() => { onClose(); setTimeout(() => onEdit(wine), 50); }}
-                    className="p-2 rounded-xl hover:bg-white/10 transition-colors text-cream/60 hover:text-cream"
+                    className={`p-2 rounded-lg transition-colors ${wine.photo ? 'hover:bg-white/20 text-white/80 hover:text-white' : 'hover:bg-black/5 text-stone-500 hover:text-stone-800'}`}
                   >
-                    <Edit3 size={18} />
+                    <Edit3 size={16} />
                   </button>
                   <button
                     onClick={handleDelete}
-                    className="p-2 rounded-xl hover:bg-red-500/20 transition-colors text-cream/60 hover:text-red-400"
+                    className={`p-2 rounded-lg transition-colors ${wine.photo ? 'hover:bg-red-500/30 text-white/70 hover:text-red-300' : 'hover:bg-red-50 text-stone-500 hover:text-red-500'}`}
                   >
-                    <Trash2 size={18} />
+                    <Trash2 size={16} />
                   </button>
                   <button
                     onClick={onClose}
-                    className="p-2 rounded-xl hover:bg-white/10 transition-colors text-cream/60 hover:text-cream ml-1"
+                    className={`p-2 rounded-lg transition-colors ml-0.5 ${wine.photo ? 'hover:bg-white/20 text-white/80 hover:text-white' : 'hover:bg-black/5 text-stone-500 hover:text-stone-800'}`}
                   >
-                    <X size={18} />
+                    <X size={16} />
                   </button>
                 </div>
               </div>
+            </div>
 
-              {/* Title */}
-              <h1
-                className="text-2xl font-semibold text-cream mb-1"
-                style={{ fontFamily: "'Playfair Display', serif" }}
-              >
+            {/* Title section */}
+            <div className="px-6 pt-5 pb-4 border-b border-stone-100">
+              <div className="flex items-start justify-between gap-3 mb-3">
+                <WineTypeIcon type={wine.type} showLabel size="md" />
+              </div>
+              <h1 className="text-xl font-semibold text-stone-900 mb-0.5 leading-snug">
                 {wine.name}
               </h1>
               {wine.winery && (
-                <p className="text-wine-300 font-medium mb-4">{wine.winery}</p>
+                <p className="text-sm text-stone-500 mb-3">{wine.winery}</p>
               )}
-
-              {/* Rating */}
-              <StarRating value={wine.rating} readonly size="lg" />
+              <StarRating value={wine.rating} readonly size="md" />
             </div>
 
             {/* Details */}
-            <div className="px-6 py-5 space-y-5 overflow-y-auto modal-scroll" style={{ maxHeight: '55vh' }}>
+            <div className="px-6 py-5 space-y-5 overflow-y-auto modal-scroll scrollbar-light" style={{ maxHeight: '50vh' }}>
               {/* Key facts grid */}
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-2">
                 {wine.vintage && (
-                  <div className="bg-burgundy-dark/40 rounded-xl p-3 border border-wine-900/30">
-                    <div className="flex items-center gap-1.5 text-xs text-wine-400 mb-1">
-                      <Calendar size={12} /> Vintage
+                  <div className="bg-stone-50 rounded-lg p-3 border border-stone-100">
+                    <div className="flex items-center gap-1.5 text-xs text-stone-400 mb-1">
+                      <Calendar size={11} strokeWidth={1.5} /> Vintage
                     </div>
-                    <p className="text-cream font-semibold text-lg">{wine.vintage}</p>
+                    <p className="text-stone-900 font-semibold text-lg leading-none">{wine.vintage}</p>
                   </div>
                 )}
                 {(wine.region || wine.country) && (
-                  <div className="bg-burgundy-dark/40 rounded-xl p-3 border border-wine-900/30">
-                    <div className="flex items-center gap-1.5 text-xs text-wine-400 mb-1">
-                      <MapPin size={12} /> Origin
+                  <div className="bg-stone-50 rounded-lg p-3 border border-stone-100">
+                    <div className="flex items-center gap-1.5 text-xs text-stone-400 mb-1">
+                      <MapPin size={11} strokeWidth={1.5} /> Origin
                     </div>
-                    <p className="text-cream font-medium text-sm">
+                    <p className="text-stone-800 font-medium text-sm">
                       {[wine.region, wine.country].filter(Boolean).join(', ')}
                     </p>
                   </div>
                 )}
                 {wine.grapes && (
-                  <div className="bg-burgundy-dark/40 rounded-xl p-3 border border-wine-900/30">
-                    <div className="flex items-center gap-1.5 text-xs text-wine-400 mb-1">
-                      <Wine size={12} /> Grapes
+                  <div className="bg-stone-50 rounded-lg p-3 border border-stone-100">
+                    <div className="flex items-center gap-1.5 text-xs text-stone-400 mb-1">
+                      <Wine size={11} strokeWidth={1.5} /> Grapes
                     </div>
-                    <p className="text-cream font-medium text-sm">{wine.grapes}</p>
+                    <p className="text-stone-800 font-medium text-sm">{wine.grapes}</p>
                   </div>
                 )}
                 {wine.bottlesOwned > 0 && (
-                  <div className="bg-burgundy-dark/40 rounded-xl p-3 border border-wine-900/30">
-                    <div className="flex items-center gap-1.5 text-xs text-wine-400 mb-1">
-                      <Package size={12} /> Cellar
+                  <div className="bg-stone-50 rounded-lg p-3 border border-stone-100">
+                    <div className="flex items-center gap-1.5 text-xs text-stone-400 mb-1">
+                      <Package size={11} strokeWidth={1.5} /> Cellar
                     </div>
-                    <p className="text-cream font-semibold text-lg">
+                    <p className="text-stone-900 font-semibold text-lg leading-none">
                       {wine.bottlesOwned}
-                      <span className="text-sm font-normal text-wine-400 ml-1">
+                      <span className="text-sm font-normal text-stone-400 ml-1">
                         bottle{wine.bottlesOwned !== 1 ? 's' : ''}
                       </span>
                     </p>
@@ -181,9 +179,9 @@ export function WineDetailModal({ wine, onClose, onEdit, onDelete, onToggleFavor
 
               {/* Price */}
               {wine.price && (
-                <div className="flex items-center justify-between py-3 border-t border-b border-wine-900/30">
-                  <span className="text-wine-400 text-sm">Price</span>
-                  <span className="text-gold font-semibold text-lg">
+                <div className="flex items-center justify-between py-3 border-t border-b border-stone-100">
+                  <span className="text-sm text-stone-500">Price</span>
+                  <span className="text-stone-900 font-semibold">
                     {wine.currency} {wine.price.toFixed(2)}
                   </span>
                 </div>
@@ -192,8 +190,8 @@ export function WineDetailModal({ wine, onClose, onEdit, onDelete, onToggleFavor
               {/* Tasting notes */}
               {wine.notes && (
                 <div>
-                  <h3 className="text-xs text-wine-400 uppercase tracking-wider mb-2">Tasting Notes</h3>
-                  <p className="text-cream/80 text-sm leading-relaxed italic" style={{ fontFamily: "'Playfair Display', serif" }}>
+                  <h3 className="text-xs text-stone-400 uppercase tracking-wider mb-2 font-medium">Tasting Notes</h3>
+                  <p className="text-stone-600 text-sm leading-relaxed italic">
                     "{wine.notes}"
                   </p>
                 </div>
@@ -202,12 +200,12 @@ export function WineDetailModal({ wine, onClose, onEdit, onDelete, onToggleFavor
               {/* Pairings */}
               {wine.pairings.length > 0 && (
                 <div>
-                  <h3 className="text-xs text-wine-400 uppercase tracking-wider mb-2">Food Pairings</h3>
+                  <h3 className="text-xs text-stone-400 uppercase tracking-wider mb-2 font-medium">Food Pairings</h3>
                   <div className="flex flex-wrap gap-1.5">
                     {wine.pairings.map(p => (
                       <span
                         key={p}
-                        className="px-2.5 py-1 bg-gold/10 border border-gold/25 rounded-full text-xs text-gold"
+                        className="px-2.5 py-1 bg-stone-100 rounded-full text-xs text-stone-600"
                       >
                         {p}
                       </span>
@@ -217,14 +215,14 @@ export function WineDetailModal({ wine, onClose, onEdit, onDelete, onToggleFavor
               )}
 
               {/* Dates */}
-              <div className="flex flex-col gap-1.5 pt-2 border-t border-wine-900/30">
-                <div className="flex items-center gap-2 text-xs text-wine-400">
-                  <Clock size={11} />
+              <div className="flex flex-col gap-1.5 pt-2 border-t border-stone-100">
+                <div className="flex items-center gap-2 text-xs text-stone-400">
+                  <Clock size={11} strokeWidth={1.5} />
                   Added {new Date(wine.dateAdded).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
                 </div>
                 {wine.dateTasted && (
-                  <div className="flex items-center gap-2 text-xs text-wine-400">
-                    <Clock size={11} />
+                  <div className="flex items-center gap-2 text-xs text-stone-400">
+                    <Clock size={11} strokeWidth={1.5} />
                     Tasted {new Date(wine.dateTasted).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
                   </div>
                 )}

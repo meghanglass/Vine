@@ -80,33 +80,34 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           className="fixed inset-0 z-50 flex items-center justify-center p-4"
-          style={{ background: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(4px)' }}
+          style={{ background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(4px)' }}
           onClick={e => e.target === e.currentTarget && onClose()}
         >
           <motion.div
-            initial={{ opacity: 0, scale: 0.92, y: 24 }}
+            initial={{ opacity: 0, scale: 0.96, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.92, y: 24 }}
-            transition={{ type: 'spring', damping: 25, stiffness: 280 }}
-            className="w-full max-w-lg bg-burgundy-deeper rounded-3xl overflow-hidden modal-scroll"
-            style={{ background: '#1a0a0c', maxHeight: '90vh', border: '1px solid rgba(114,47,55,0.4)' }}
+            exit={{ opacity: 0, scale: 0.96, y: 16 }}
+            transition={{ type: 'spring', damping: 26, stiffness: 300 }}
+            className="w-full max-w-lg bg-white rounded-2xl overflow-hidden modal-scroll"
+            style={{
+              maxHeight: '90vh',
+              border: '1px solid #E7E5E4',
+              boxShadow: '0 20px 60px rgba(0,0,0,0.12), 0 8px 24px rgba(0,0,0,0.07)',
+            }}
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-wine-900/40">
+            <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-stone-100">
               <div>
-                <h2
-                  className="text-xl font-semibold text-cream"
-                  style={{ fontFamily: "'Playfair Display', serif" }}
-                >
-                  {initial ? 'Edit Wine' : 'Add New Wine'}
+                <h2 className="text-base font-semibold text-stone-900">
+                  {initial ? 'Edit wine' : 'Add wine'}
                 </h2>
-                <p className="text-xs text-wine-400 mt-0.5">{steps[step]}</p>
+                <p className="text-xs text-stone-400 mt-0.5">{steps[step]}</p>
               </div>
               <button
                 onClick={onClose}
-                className="p-2 rounded-xl hover:bg-wine-900/40 text-wine-400 hover:text-cream transition-colors"
+                className="p-1.5 rounded-lg hover:bg-stone-100 text-stone-400 hover:text-stone-600 transition-colors"
               >
-                <X size={18} />
+                <X size={16} />
               </button>
             </div>
 
@@ -116,8 +117,8 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
                 <button
                   key={s}
                   onClick={() => i < step || (i === step + 1 && canProceed) ? setStep(i) : null}
-                  className={`flex-1 h-1 rounded-full transition-all duration-300 ${
-                    i <= step ? 'bg-gold' : 'bg-wine-900'
+                  className={`flex-1 h-0.5 rounded-full transition-all duration-300 ${
+                    i <= step ? 'bg-stone-900' : 'bg-stone-200'
                   }`}
                   aria-label={s}
                 />
@@ -125,17 +126,17 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
             </div>
 
             {/* Form content */}
-            <div className="px-6 pb-6 space-y-4 overflow-y-auto modal-scroll" style={{ maxHeight: '60vh' }}>
+            <div className="px-6 pb-6 space-y-4 overflow-y-auto modal-scroll scrollbar-light" style={{ maxHeight: '60vh' }}>
               <AnimatePresence mode="wait">
                 {step === 0 && (
                   <motion.div
                     key="step0"
-                    initial={{ opacity: 0, x: 20 }}
+                    initial={{ opacity: 0, x: 12 }}
                     animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
+                    exit={{ opacity: 0, x: -12 }}
+                    transition={{ duration: 0.18 }}
                     className="space-y-4"
                   >
-                    {/* Photo upload */}
                     <ImageUpload
                       value={form.photo}
                       onChange={v => set('photo', v)}
@@ -143,8 +144,8 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
 
                     {/* Wine type selector */}
                     <div>
-                      <label className="block text-xs text-wine-400 uppercase tracking-wider mb-2">Type *</label>
-                      <div className="grid grid-cols-3 gap-2">
+                      <label className="block text-xs text-stone-500 uppercase tracking-wider mb-2 font-medium">Type *</label>
+                      <div className="grid grid-cols-3 gap-1.5">
                         {WINE_TYPES.map(t => {
                           const cfg = typeConfig[t];
                           const active = form.type === t;
@@ -153,46 +154,47 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
                               key={t}
                               type="button"
                               onClick={() => set('type', t)}
-                              className={`flex flex-col items-center gap-1 py-3 rounded-xl border text-sm transition-all ${
-                                active ? 'font-medium' : 'border-wine-800 text-cream/70 hover:border-wine-600'
+                              className={`flex flex-col items-center gap-1 py-2.5 rounded-lg border text-sm transition-all duration-150 ${
+                                active ? 'font-medium' : 'border-stone-200 text-stone-600 hover:border-stone-300 bg-white'
                               }`}
-                              style={active ? { background: cfg.bg, color: cfg.color, borderColor: `${cfg.color}55` } : {}}
+                              style={active ? {
+                                background: cfg.bg,
+                                color: cfg.color,
+                                borderColor: `${cfg.color}33`,
+                              } : {}}
                             >
-                              <span className="text-2xl">{cfg.emoji}</span>
-                              <span>{cfg.label}</span>
+                              <span className="text-xl">{cfg.emoji}</span>
+                              <span className="text-xs">{cfg.label}</span>
                             </button>
                           );
                         })}
                       </div>
                     </div>
 
-                    {/* Name */}
                     <div>
-                      <label className="block text-xs text-wine-400 uppercase tracking-wider mb-2">Wine Name *</label>
+                      <label className="block text-xs text-stone-500 uppercase tracking-wider mb-2 font-medium">Wine Name *</label>
                       <input
                         className="input-field"
-                        placeholder="e.g. Château Margaux, Barolo Riserva..."
+                        placeholder="e.g. Château Margaux, Barolo Riserva…"
                         value={form.name}
                         onChange={e => set('name', e.target.value)}
                         autoFocus
                       />
                     </div>
 
-                    {/* Winery */}
                     <div>
-                      <label className="block text-xs text-wine-400 uppercase tracking-wider mb-2">Winery / Producer</label>
+                      <label className="block text-xs text-stone-500 uppercase tracking-wider mb-2 font-medium">Winery / Producer</label>
                       <input
                         className="input-field"
-                        placeholder="Producer name..."
+                        placeholder="Producer name…"
                         value={form.winery}
                         onChange={e => set('winery', e.target.value)}
                       />
                     </div>
 
-                    {/* Vintage + Rating row */}
                     <div className="grid grid-cols-2 gap-3">
                       <div>
-                        <label className="block text-xs text-wine-400 uppercase tracking-wider mb-2">Vintage</label>
+                        <label className="block text-xs text-stone-500 uppercase tracking-wider mb-2 font-medium">Vintage</label>
                         <input
                           className="input-field"
                           type="number"
@@ -204,7 +206,7 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
                         />
                       </div>
                       <div>
-                        <label className="block text-xs text-wine-400 uppercase tracking-wider mb-2">Rating</label>
+                        <label className="block text-xs text-stone-500 uppercase tracking-wider mb-2 font-medium">Rating</label>
                         <div className="pt-2">
                           <StarRating value={form.rating} onChange={v => set('rating', v)} size="lg" />
                         </div>
@@ -216,48 +218,46 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
                 {step === 1 && (
                   <motion.div
                     key="step1"
-                    initial={{ opacity: 0, x: 20 }}
+                    initial={{ opacity: 0, x: 12 }}
                     animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
+                    exit={{ opacity: 0, x: -12 }}
+                    transition={{ duration: 0.18 }}
                     className="space-y-4"
                   >
-                    {/* Grapes */}
                     <div>
-                      <label className="block text-xs text-wine-400 uppercase tracking-wider mb-2">Grape Varieties</label>
+                      <label className="block text-xs text-stone-500 uppercase tracking-wider mb-2 font-medium">Grape Varieties</label>
                       <input
                         className="input-field"
-                        placeholder="e.g. Cabernet Sauvignon, Merlot..."
+                        placeholder="e.g. Cabernet Sauvignon, Merlot…"
                         value={form.grapes}
                         onChange={e => set('grapes', e.target.value)}
                       />
                     </div>
 
-                    {/* Region + Country */}
                     <div className="grid grid-cols-2 gap-3">
                       <div>
-                        <label className="block text-xs text-wine-400 uppercase tracking-wider mb-2">Region</label>
+                        <label className="block text-xs text-stone-500 uppercase tracking-wider mb-2 font-medium">Region</label>
                         <input
                           className="input-field"
-                          placeholder="e.g. Bordeaux, Tuscany..."
+                          placeholder="e.g. Bordeaux…"
                           value={form.region}
                           onChange={e => set('region', e.target.value)}
                         />
                       </div>
                       <div>
-                        <label className="block text-xs text-wine-400 uppercase tracking-wider mb-2">Country</label>
+                        <label className="block text-xs text-stone-500 uppercase tracking-wider mb-2 font-medium">Country</label>
                         <input
                           className="input-field"
-                          placeholder="e.g. France, Italy..."
+                          placeholder="e.g. France…"
                           value={form.country}
                           onChange={e => set('country', e.target.value)}
                         />
                       </div>
                     </div>
 
-                    {/* Price */}
                     <div className="grid grid-cols-3 gap-2">
                       <div>
-                        <label className="block text-xs text-wine-400 uppercase tracking-wider mb-2">Currency</label>
+                        <label className="block text-xs text-stone-500 uppercase tracking-wider mb-2 font-medium">Currency</label>
                         <select
                           className="input-field"
                           value={form.currency}
@@ -267,7 +267,7 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
                         </select>
                       </div>
                       <div className="col-span-2">
-                        <label className="block text-xs text-wine-400 uppercase tracking-wider mb-2">Price</label>
+                        <label className="block text-xs text-stone-500 uppercase tracking-wider mb-2 font-medium">Price</label>
                         <input
                           className="input-field"
                           type="number"
@@ -280,22 +280,21 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
                       </div>
                     </div>
 
-                    {/* Bottles owned */}
                     <div>
-                      <label className="block text-xs text-wine-400 uppercase tracking-wider mb-2">Bottles in Collection</label>
+                      <label className="block text-xs text-stone-500 uppercase tracking-wider mb-2 font-medium">Bottles in Collection</label>
                       <div className="flex items-center gap-3">
                         <button
                           type="button"
                           onClick={() => set('bottlesOwned', Math.max(0, (form.bottlesOwned || 1) - 1))}
-                          className="w-10 h-10 rounded-xl border border-wine-800 text-cream hover:bg-wine-900/40 transition-colors flex items-center justify-center text-xl"
+                          className="w-9 h-9 rounded-lg border border-stone-200 text-stone-600 hover:bg-stone-50 transition-colors flex items-center justify-center text-lg font-light"
                         >
                           −
                         </button>
-                        <span className="text-cream text-xl font-medium w-8 text-center">{form.bottlesOwned}</span>
+                        <span className="text-stone-900 text-lg font-medium w-8 text-center tabular-nums">{form.bottlesOwned}</span>
                         <button
                           type="button"
                           onClick={() => set('bottlesOwned', (form.bottlesOwned || 1) + 1)}
-                          className="w-10 h-10 rounded-xl border border-wine-800 text-cream hover:bg-wine-900/40 transition-colors flex items-center justify-center text-xl"
+                          className="w-9 h-9 rounded-lg border border-stone-200 text-stone-600 hover:bg-stone-50 transition-colors flex items-center justify-center text-lg font-light"
                         >
                           +
                         </button>
@@ -307,38 +306,35 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
                 {step === 2 && (
                   <motion.div
                     key="step2"
-                    initial={{ opacity: 0, x: 20 }}
+                    initial={{ opacity: 0, x: 12 }}
                     animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
+                    exit={{ opacity: 0, x: -12 }}
+                    transition={{ duration: 0.18 }}
                     className="space-y-4"
                   >
-                    {/* Date tasted */}
                     <div>
-                      <label className="block text-xs text-wine-400 uppercase tracking-wider mb-2">Date Tasted</label>
+                      <label className="block text-xs text-stone-500 uppercase tracking-wider mb-2 font-medium">Date Tasted</label>
                       <input
                         className="input-field"
                         type="date"
                         value={form.dateTasted ?? ''}
                         onChange={e => set('dateTasted', e.target.value || null)}
-                        style={{ colorScheme: 'dark' }}
                       />
                     </div>
 
-                    {/* Tasting notes */}
                     <div>
-                      <label className="block text-xs text-wine-400 uppercase tracking-wider mb-2">Tasting Notes</label>
+                      <label className="block text-xs text-stone-500 uppercase tracking-wider mb-2 font-medium">Tasting Notes</label>
                       <textarea
                         className="input-field resize-none"
-                        placeholder="Describe aromas, flavors, finish..."
+                        placeholder="Describe aromas, flavors, finish…"
                         rows={4}
                         value={form.notes}
                         onChange={e => set('notes', e.target.value)}
                       />
                     </div>
 
-                    {/* Food pairings */}
                     <div>
-                      <label className="block text-xs text-wine-400 uppercase tracking-wider mb-2">Food Pairings</label>
+                      <label className="block text-xs text-stone-500 uppercase tracking-wider mb-2 font-medium">Food Pairings</label>
                       <div className="flex flex-wrap gap-1.5 mb-3">
                         {COMMON_PAIRINGS.map(p => {
                           const active = form.pairings.includes(p);
@@ -351,10 +347,10 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
                                   ? form.pairings.filter(x => x !== p)
                                   : [...form.pairings, p])
                               }
-                              className={`px-2.5 py-1 rounded-full text-xs border transition-all ${
+                              className={`px-2.5 py-1 rounded-full text-xs border transition-all duration-150 ${
                                 active
-                                  ? 'bg-gold/20 border-gold/50 text-gold'
-                                  : 'border-wine-800 text-cream/70 hover:border-wine-600'
+                                  ? 'bg-stone-900 border-stone-900 text-white font-medium'
+                                  : 'bg-white border-stone-200 text-stone-600 hover:border-stone-300'
                               }`}
                             >
                               {p}
@@ -365,7 +361,7 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
                       <div className="flex gap-2">
                         <input
                           className="input-field text-sm"
-                          placeholder="Add custom pairing..."
+                          placeholder="Add custom pairing…"
                           value={pairingInput}
                           onChange={e => setPairingInput(e.target.value)}
                           onKeyDown={e => e.key === 'Enter' && (e.preventDefault(), addPairing(pairingInput))}
@@ -373,17 +369,20 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
                         <button
                           type="button"
                           onClick={() => addPairing(pairingInput)}
-                          className="px-3 bg-wine-900/60 border border-wine-800 rounded-xl text-cream hover:bg-wine-800/60 transition-colors"
+                          className="px-3 bg-white border border-stone-200 rounded-lg text-stone-600 hover:bg-stone-50 hover:border-stone-300 transition-colors"
                         >
-                          <Plus size={16} />
+                          <Plus size={15} />
                         </button>
                       </div>
                       {form.pairings.length > 0 && (
                         <div className="flex flex-wrap gap-1.5 mt-2">
                           {form.pairings.map(p => (
-                            <span key={p} className="flex items-center gap-1 px-2 py-0.5 bg-gold/10 border border-gold/30 rounded-full text-xs text-gold">
+                            <span key={p} className="flex items-center gap-1 px-2.5 py-1 bg-stone-100 rounded-full text-xs text-stone-700">
                               {p}
-                              <button onClick={() => set('pairings', form.pairings.filter(x => x !== p))}>
+                              <button
+                                onClick={() => set('pairings', form.pairings.filter(x => x !== p))}
+                                className="text-stone-400 hover:text-stone-600"
+                              >
                                 <Trash2 size={10} />
                               </button>
                             </span>
@@ -392,15 +391,14 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
                       )}
                     </div>
 
-                    {/* Favorite */}
-                    <div className="flex items-center gap-3">
+                    <div>
                       <button
                         type="button"
                         onClick={() => set('favorite', !form.favorite)}
-                        className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-medium transition-all ${
+                        className={`flex items-center gap-2 px-4 py-2.5 rounded-lg border text-sm font-medium transition-all duration-150 ${
                           form.favorite
-                            ? 'bg-wine-800/40 border-wine-500 text-wine-300'
-                            : 'border-wine-800 text-cream/60 hover:border-wine-600'
+                            ? 'bg-red-50 border-red-200 text-red-600'
+                            : 'bg-white border-stone-200 text-stone-600 hover:border-stone-300'
                         }`}
                       >
                         ♥ {form.favorite ? 'In Favorites' : 'Add to Favorites'}
@@ -412,10 +410,10 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
             </div>
 
             {/* Footer */}
-            <div className="flex justify-between items-center px-6 py-4 border-t border-wine-900/40">
+            <div className="flex justify-between items-center px-6 py-4 border-t border-stone-100">
               <button
                 onClick={() => step > 0 ? setStep(step - 1) : onClose()}
-                className="btn-secondary text-sm px-4 py-2.5"
+                className="btn-secondary text-sm px-4 py-2"
               >
                 {step === 0 ? 'Cancel' : '← Back'}
               </button>
@@ -423,7 +421,7 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
                 <button
                   onClick={() => canProceed && setStep(step + 1)}
                   disabled={!canProceed}
-                  className="btn-primary text-sm px-6 py-2.5 disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="btn-primary text-sm px-5 py-2 disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   Next →
                 </button>
@@ -431,9 +429,9 @@ export function WineFormModal({ open, onClose, onSave, initial }: Props) {
                 <button
                   onClick={handleSave}
                   disabled={!form.name.trim()}
-                  className="btn-primary text-sm px-6 py-2.5 disabled:opacity-40"
+                  className="btn-primary text-sm px-5 py-2 disabled:opacity-40"
                 >
-                  {initial ? 'Save Changes' : 'Add to Cellar'}
+                  {initial ? 'Save changes' : 'Add to cellar'}
                 </button>
               )}
             </div>

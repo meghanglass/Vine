@@ -60,58 +60,39 @@ export default function App() {
     !!filters.search;
 
   return (
-    <div className="min-h-screen" style={{ background: 'linear-gradient(160deg, #1a0a0c 0%, #0d0507 60%, #120810 100%)' }}>
-      {/* Ambient background glow */}
-      <div
-        className="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse at 50% 0%, rgba(114,47,55,0.25) 0%, transparent 70%)',
-          zIndex: 0,
-        }}
-      />
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+    <div className="min-h-screen bg-stone-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         {/* Header */}
-        <header className="pt-10 pb-8">
-          <div className="flex items-end justify-between gap-4 flex-wrap">
+        <header className="pt-10 pb-8 border-b border-stone-200">
+          <div className="flex items-center justify-between gap-4 flex-wrap">
             <div>
-              <h1
-                className="text-4xl sm:text-5xl font-bold mb-1"
-                style={{
-                  fontFamily: "'Playfair Display', serif",
-                  background: 'linear-gradient(135deg, #FAF3E0 30%, #C9A84C 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }}
-              >
+              <h1 className="text-2xl font-semibold text-stone-900 tracking-tight">
                 Vine
               </h1>
-              <p className="text-wine-400 text-sm tracking-widest uppercase">Your Private Wine Cellar</p>
+              <p className="text-stone-400 text-sm mt-0.5">Wine cellar</p>
             </div>
 
-            {/* Add button */}
             <motion.button
               onClick={openAdd}
-              className="btn-primary flex items-center gap-2"
-              whileHover={{ scale: 1.02 }}
+              className="btn-primary flex items-center gap-2 text-sm"
               whileTap={{ scale: 0.97 }}
             >
-              <Plus size={18} />
+              <Plus size={15} strokeWidth={2.5} />
               Add Wine
             </motion.button>
           </div>
         </header>
 
-        {/* Stats (only when there are wines) */}
+        {/* Stats */}
         {wines.length > 0 && (
-          <div className="mb-8">
+          <div className="mt-6 mb-6">
             <StatsBar stats={stats} />
           </div>
         )}
 
         {/* Filter & sort bar */}
         {wines.length > 0 && (
-          <div className="mb-6">
+          <div className="mb-5">
             <FilterBar
               filters={filters}
               setFilters={setFilters}
@@ -129,22 +110,22 @@ export default function App() {
         {/* View mode toggle + count */}
         {wines.length > 0 && (
           <div className="flex items-center justify-between mb-4">
-            <p className="text-wine-400 text-sm">
-              {filteredAndSorted.length} wine{filteredAndSorted.length !== 1 ? 's' : ''}
+            <p className="text-stone-400 text-sm">
+              {filteredAndSorted.length} {filteredAndSorted.length === 1 ? 'wine' : 'wines'}
             </p>
-            <div className="flex gap-1 p-1 rounded-xl bg-burgundy-dark/40 border border-wine-900/30">
+            <div className="flex gap-0.5 p-1 rounded-lg bg-white border border-stone-200">
               {([['grid', Grid3X3], ['list', List], ['compact', LayoutGrid]] as [ViewMode, typeof Grid3X3][]).map(([mode, Icon]) => (
                 <button
                   key={mode}
                   onClick={() => setViewMode(mode)}
-                  className={`p-2 rounded-lg transition-all ${
+                  className={`p-1.5 rounded-md transition-all ${
                     viewMode === mode
-                      ? 'bg-gold/20 text-gold'
-                      : 'text-wine-400 hover:text-cream'
+                      ? 'bg-stone-900 text-white'
+                      : 'text-stone-400 hover:text-stone-600'
                   }`}
                   aria-label={`${mode} view`}
                 >
-                  <Icon size={16} />
+                  <Icon size={14} />
                 </button>
               ))}
             </div>
@@ -157,7 +138,7 @@ export default function App() {
         ) : (
           <motion.div
             layout
-            className={`grid gap-4 ${VIEW_COLS[viewMode]}`}
+            className={`grid gap-3 ${VIEW_COLS[viewMode]}`}
           >
             <AnimatePresence mode="popLayout">
               {filteredAndSorted.map((wine, i) => (
@@ -176,7 +157,6 @@ export default function App() {
         )}
       </div>
 
-      {/* Add/Edit form modal */}
       <WineFormModal
         open={formOpen}
         onClose={() => setFormOpen(false)}
@@ -184,7 +164,6 @@ export default function App() {
         initial={editingWine}
       />
 
-      {/* Detail view modal */}
       <WineDetailModal
         wine={viewingWine}
         onClose={() => setViewingWine(null)}
